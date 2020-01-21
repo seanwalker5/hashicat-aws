@@ -1,5 +1,5 @@
 module "vpc" {
-  source  = "app.terraform.io/Slalom-aws-terraform-workshop/vpc/aws"
+  source  = source  = "app.terraform.io/swalker-test/vpc/aws"
   version = "2.22.0"
 
   name = "swalker-vpc"
