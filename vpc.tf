@@ -1,5 +1,6 @@
 module "vpc" {
-  source  = "app.terraform.io/swalker-test/vpc/aws"
+  source  = "app.terraform.io/Slalom-aws-terraform-workshop/vpc/aws"
+  version = "2.22.0"
 
   name = "swalker-vpc"
   cidr = "10.0.0.0/16"
@@ -15,4 +16,5 @@ module "vpc" {
     Terraform = "true"
     Environment = "dev"
   }
+
 }
