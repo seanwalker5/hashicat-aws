@@ -65,6 +65,12 @@ resource random_id "app-server-id" {
   byte_length = 8
 }
 
+
+resource aws_eip "hashicat" {
+  instance = aws_instance.hashicat.id
+  vpc      = true
+}
+
 resource aws_internet_gateway "hashicat" {
   vpc_id = aws_vpc.hashicat.id
 
@@ -92,8 +98,8 @@ data aws_ami "ubuntu" {
 
   filter {
     name   = "name"
-    #values = ["ubuntu/images/hvm-ssd/ubuntu-disco-19.04-amd64-server-*"]
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-disco-19.04-amd64-server-*"]
+    # values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   }
 
   filter {
@@ -113,9 +119,9 @@ resource aws_instance "hashicat" {
   vpc_security_group_ids      = [aws_security_group.hashicat.id]
 
   tags = {
-    Name = "${var.prefix}-hashicat-instance"
-    Billable = "true"
-    Department = "devops"
+  Name = "${var.prefix}-hashicat-instance"
+  Billable = "true"
+  Department = "devops"
   }
 }
 
@@ -153,7 +159,7 @@ resource "null_resource" "configure-cat-app" {
       type        = "ssh"
       user        = "ubuntu"
       private_key = tls_private_key.hashicat.private_key_pem
-      host        = aws_instance.hashicat.public_ip
+      host        = aws_eip.hashicat.public_ip
     }
   }
   provisioner "remote-exec" {
@@ -171,7 +177,7 @@ resource "null_resource" "configure-cat-app" {
       type        = "ssh"
       user        = "ubuntu"
       private_key = tls_private_key.hashicat.private_key_pem
-      host        = aws_instance.hashicat.public_ip
+      host        = aws_eip.hashicat.public_ip
     }
   }
 }
