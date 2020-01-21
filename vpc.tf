@@ -17,5 +17,3 @@ module "vpc" {
     Environment = "dev"
   }
 }
-HCL
-External NAT Gateway IPs
