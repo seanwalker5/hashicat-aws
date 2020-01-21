@@ -1,7 +1,7 @@
 module "vpc" {
   source  = "app.terraform.io/swalker-test/vpc/aws"
 
-  name = "my-vpc"
+  name = "swalker-vpc"
   cidr = "10.0.0.0/16"
 
   azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
